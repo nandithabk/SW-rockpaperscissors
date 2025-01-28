@@ -6,6 +6,14 @@ let userChoice
 let computerChoice
 let result
 
+let wins = 0;
+let losses = 0;
+let draws = 0;
+
+const winsDisplay = document.getElementById('wins');
+const lossesDisplay = document.getElementById('losses');
+const drawsDisplay = document.getElementById('draws');
+
 possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click',(e)=>{
     userChoice = e.target.id
     userChoiceDisplay.innerHTML = userChoice
@@ -34,20 +42,46 @@ function generateComputerChoice() {
 function getResult() {
     if(computerChoice === userChoice) {
         result = 'its a draw!'
+        draws++;
     }
     if(computerChoice ==='rock' &&  userChoice === 'paper') {
         result = 'you lost!'
+        losses++;
     }
     if(computerChoice ==='paper' &&  userChoice === 'scissors') {
         result = 'you win!'
+        wins++;
     }
     if(computerChoice ==='paper' &&  userChoice === 'rock') {
         result = 'you lose!'
+        losses++;
     }
     if(computerChoice ==='scissors' &&  userChoice === 'rock') {
         result = 'you win!'
+        wins++;
     }
     if(computerChoice ==='scissors' &&  userChoice === 'paper') {
         result = 'you lose!'
+        losses++;
     }
+
+    resultDisplay.innerHTML = result;
+    updateScore();
 }
+
+function updateScore() {
+    winsDisplay.innerHTML = wins;
+    lossesDisplay.innerHTML = losses;
+    drawsDisplay.innerHTML = draws;
+}
+
+const restartButton = document.getElementById('restart');
+restartButton.addEventListener('click', () => {
+    wins = 0;
+    losses = 0;
+    draws = 0;
+    updateScore();
+    computerChoiceDisplay.innerHTML = '';
+    userChoiceDisplay.innerHTML = '';
+    resultDisplay.innerHTML = '';
+});
